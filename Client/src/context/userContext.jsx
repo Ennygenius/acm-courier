@@ -5,7 +5,7 @@ export const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [Admin, setAdmin] = useState(null);
+  const [Admin, setAdmin] = useState({});
   const [Details, setDetails] = useState([]);
   const [message, setMessage] = useState("");
 

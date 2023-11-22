@@ -8,30 +8,36 @@ export const signup = async (req, res) => {
     if (!email || !username || !password || !repeatPassword) {
       return res.json({ message: "Please fill out the fields" });
     }
-    const user = await Admin.findOne({ email });
 
     if (password !== repeatPassword) {
       return res.json({ message: "Password does not match" });
-    } else if (user) {
+    }
+
+    if (password === username) {
+      return res.json({ message: "Password must not be similar to username" });
+    }
+
+    const user = await Admin.findOne({ email });
+    if (user) {
       return res
         .status(400)
         .json({ message: "Please the email has already been used " });
-    } else {
-      const salt = await bcrypt.genSalt(10);
-
-      const hashPassword = await bcrypt.hash(password, salt);
-
-      const saveUser = new Admin({
-        email,
-        username,
-        password: hashPassword,
-        repeatPassword: hashPassword,
-      });
-
-      const save = await saveUser.save();
-
-      return res.json({ user: save });
     }
+
+    const salt = await bcrypt.genSalt(10);
+
+    const hashPassword = await bcrypt.hash(password, salt);
+
+    const saveUser = new Admin({
+      email,
+      username,
+      password: hashPassword,
+      repeatPassword: hashPassword,
+    });
+
+    const save = await saveUser.save();
+
+    return res.json({ user: save });
   } catch (error) {
     console.log(error);
   }
