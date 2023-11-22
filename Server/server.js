@@ -1,0 +1,26 @@
+import express from "express";
+import dotenv from "dotenv";
+import { connectDB } from "./utils/Db.js";
+import TInfo from "./Routes/TrackingRoute.js";
+import Courier from "./Routes/CourierRoute.js";
+import ValTrackID from "./Routes/ValTrackID.js";
+import Admin from "./Routes/Admin.js";
+import cors from "cors";
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 9000;
+
+app.use(express.json());
+app.use(cors());
+app.use("/trackingInfo", TInfo);
+// app.use("/auth", TInfo);
+app.use("/courier", Courier);
+app.use("/login", ValTrackID);
+app.use("/auth", Admin);
+
+app.listen(PORT, () => {
+  console.log(`Server running on 127.0.0.1:${PORT}`);
+  connectDB();
+});
