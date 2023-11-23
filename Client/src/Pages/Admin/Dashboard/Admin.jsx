@@ -14,7 +14,7 @@ const Admin = () => {
 
   const Logout = () => {
     if (confirm("Do you want to logout?")) {
-      localStorage.removeItem("token");
+      localStorage.removeItem("Atoken");
       navigate("/admin/signin");
     }
   };
