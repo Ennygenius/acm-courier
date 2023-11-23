@@ -34,7 +34,12 @@ const Admin = () => {
           <span className="pl-2">ACM SHIPPING CO.</span>
         </div>
 
-        <div className="hidden md:flex text-sm">Hello, {Admin.username}</div>
+        <div className="hidden md:flex text-sm">
+          <p>Hello, {Admin.username}</p>
+          <p className="pl-2 cursor-pointer" onClick={Logout}>
+            Logout
+          </p>
+        </div>
         <div className="md:hidden " onClick={controlNav}>
           {navOpen ? (
             <div className="cursor-pointer">
@@ -50,10 +55,16 @@ const Admin = () => {
       <div className="flex ">
         {navOpen && (
           <div className="bg-red-500 md:hidden block w-[50%] h-[100vh] font-bold">
-            <ul className="flex flex-col text-center items-center justify-center my-20 capitalize">
-              <li className="py-5  ">Add User</li>
-              <li className="py-5  ">Add Tracking Details</li>
-              <li className="py-5  ">Edit Tracking Details</li>
+            <ul className="flex flex-col text-center items-center justify-center my-20 capitalize md:p-0 p-3">
+              <li className="py-5 ">Add User</li>
+              <li className="py-5 ">Add Tracking Details</li>
+              <li className="py-5 ">Edit Tracking Details</li>
+            </ul>
+            <ul
+              onClick={Logout}
+              className="flex flex-col text-center items-center justify-center my-20 capitalize md:p-0 p-3"
+            >
+              <li className="py-5 ">Logout</li>
             </ul>
           </div>
         )}
