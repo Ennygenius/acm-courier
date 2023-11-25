@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 
 const TInfo = new mongoose.Schema({
-  courier: {
-    type: mongoose.Schema.ObjectId,
-    ref: "Courier",
-  },
+  courier: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Courier",
+    },
+  ],
   goodsImage: {
     type: String,
     default: "",

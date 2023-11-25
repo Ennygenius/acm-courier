@@ -12,6 +12,8 @@ import Signin from "./Pages/Admin/Auth/Signin";
 import About from "./Pages/About/About";
 import Services from "./Pages/Services/Services";
 import Contact from "./Pages/Contact/Contact";
+import EditTrack from "./Pages/Admin/Dashboard/ETrack/EditTrack";
+import DTrack from "./Pages/Admin/Dashboard/DTrack/DTrack";
 
 function App() {
   const [loggedin, setIsLoggedin] = useState(false);
@@ -26,7 +28,11 @@ function App() {
       <Route path="/services" element={<Services />}></Route>
       <Route path="/contact" element={<Contact />}></Route>
 
-      {token && <Route path="/dashboard" element={<Dashboard />}></Route>}
+      {token ? (
+        <Route path="/dashboard" element={<Dashboard />}></Route>
+      ) : (
+        <Route path="/admin/signin" element={<Signin />}></Route>
+      )}
 
       <Route path="/admin/signup" element={<Signup />}></Route>
       <Route path="/admin/signin" element={<Signin />}></Route>
@@ -34,6 +40,8 @@ function App() {
       {Atoken ? (
         <>
           <Route path="/admin" element={<Admin />}></Route>
+          <Route path="/ETrack/:id" element={<EditTrack />}></Route>
+          <Route path="/DTrack/:id" element={<DTrack />}></Route>
         </>
       ) : null}
 

@@ -15,9 +15,8 @@ const PORT = process.env.PORT || 9000;
 app.use(express.json());
 app.use(cors());
 app.use("/trackingInfo", TInfo);
-// app.use("/auth", TInfo);
-app.use("/courier", Courier);
 app.use("/login", ValTrackID);
+app.use("/courier", Courier);
 app.use("/auth", Admin);
 
 app.listen(PORT, () => {

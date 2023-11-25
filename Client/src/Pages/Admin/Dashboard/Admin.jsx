@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../context/userContext";
 import { Link, useNavigate } from "react-router-dom";
 import { data } from "../../../Components/Nav/data";
@@ -7,93 +7,174 @@ import { AiOutlineAlignRight, AiOutlineClose } from "react-icons/ai";
 import MNav from "../../../Components/Nav/MNav";
 import { GoIssueTracks } from "react-icons/go";
 import { HiUsers } from "react-icons/hi2";
+import { Base } from "../../../axios/axios";
+import Nav from "./Nav/Nav";
 
 const Admin = () => {
   const navigate = useNavigate();
-  const { Admin } = useContext(UserContext);
+  const URI = "trackingInfo/";
+  const URI2 = "courier/";
+  const [TInfos, setTInfo] = useState([]);
+  const [detail, setDetail] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const Logout = () => {
-    if (confirm("Do you want to logout?")) {
-      localStorage.removeItem("Atoken");
-      navigate("/admin/signin");
-    }
-  };
+  useEffect(() => {
+    const base = async () => {
+      try {
+        setLoading(true);
+        const response = await Base.get(URI);
+        console.log(response.data.info);
+        setTInfo(response.data.info);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    base();
 
-  const [navOpen, setNavOpen] = useState(false);
-
-  const controlNav = () => {
-    setNavOpen(!navOpen);
-    console.log("clicked");
-  };
+    const base2 = async () => {
+      const response = await Base.get(URI2);
+      console.log(response.data.courier);
+      setDetail(response.data.courier);
+    };
+    base2();
+  }, []);
 
   return (
-    <div className="text-white">
-      <nav className=" flex justify-between px-5 md:px-10 py-5 items-center bg-red-500 sticky top-0 ">
-        <div className="logo flex items-center text-2xl sm:text-xl md:text-4xl font-bold">
-          <FaTruckFast color="rgb(147, 197, 253)" />
-          <span className="pl-2">ACM SHIPPING CO.</span>
-        </div>
+    <div className="">
+      <Nav />
 
-        <div className="hidden md:flex text-sm">
-          <p>Hello, {Admin.username}</p>
-          <p className="pl-2 cursor-pointer" onClick={Logout}>
-            Logout
-          </p>
+      <div className=" mx-2 md:mx-10 my-10 ">
+        {" "}
+        <div className="h2 py-5 font-bold">
+          <h2 className="text-2xl md:text-4xl">All Tracking Details</h2>
         </div>
-        <div className="md:hidden " onClick={controlNav}>
-          {navOpen ? (
-            <div className="cursor-pointer">
-              <AiOutlineClose fontSize={20} />
-            </div>
-          ) : (
-            <div className="bg-btn cursor-pointer px-4 py-2 rounded-full ">
-              <AiOutlineAlignRight fontSize={20} color="black" />
-            </div>
-          )}
+        <div className=" overflow-x-scroll">
+          <table className=" min-w-full">
+            <thead className="text-center border">
+              <tr>
+                <td scope="col" className="py-2 px-2 border ">
+                  ID
+                </td>
+                <td scope="col" className="py-2 px-2 border ">
+                  From
+                </td>
+                <td scope="col" className="py-2 px-2 border ">
+                  To
+                </td>
+                <td scope="col" className="py-2 px-2 border ">
+                  Tracking Status
+                </td>
+                <td scope="col" className="py-2 px-2 border ">
+                  Service Mode
+                </td>
+                <td scope="col" className="py-2 px-2 border ">
+                  Weight
+                </td>
+                <td scope="col" className="py-2 px-2 border ">
+                  Reciever Name
+                </td>
+                <td scope="col" className="py-2 px-2 border ">
+                  Reciever Number
+                </td>
+                <td scope="col" className="py-2 px-2 border ">
+                  Courier
+                </td>
+                <td scope="col" className="py-2 px-2 border ">
+                  Action
+                </td>
+              </tr>
+            </thead>
+            {loading ? (
+              <>Loading...............</>
+            ) : (
+              TInfos.map((data) => (
+                <tbody className=" border text-center ">
+                  <td className="py-5 px-2">{data._id}</td>
+                  <td className="px-5">{data.from}</td>
+                  <td className="px-5">{data.to}</td>
+                  <td className="px-5">{data.trackingStatus}</td>
+                  <td className="px-5">{data.seviceMode}</td>
+                  <td className="px-5">{data.weight}</td>
+                  <td className="px-5">{data.recieverName}</td>
+                  <td className="px-5">0{data.recieverNumber}</td>
+
+                  <td className="px-5">
+                    {data.courier.map((data) => data.email)}
+                  </td>
+
+                  <td className="px-5">
+                    <div className="flex items-center text-center justify-center">
+                      <Link to={`/ETrack/${data._id}`}>
+                        <p className="py-5">Edit</p>
+                      </Link>
+                      <Link to={`/DTrack/${data._id}`}>
+                        <p className="px-5">Delete</p>
+                      </Link>
+                    </div>
+                  </td>
+                </tbody>
+              ))
+            )}
+          </table>
         </div>
-      </nav>
-      <div className="flex ">
-        {navOpen && (
-          <div className="bg-red-500 md:hidden block w-[50%] h-[100vh] font-bold">
-            <ul className="flex flex-col text-center items-center justify-center my-20 capitalize md:p-0 p-3">
-              <li className="py-5 ">Add User</li>
-              <li className="py-5 ">Add Tracking Details</li>
-              <li className="py-5 ">Edit Tracking Details</li>
-            </ul>
-            <ul
-              onClick={Logout}
-              className="flex flex-col text-center items-center justify-center my-20 capitalize md:p-0 p-3"
-            >
-              <li className="py-5 ">Logout</li>
-            </ul>
-          </div>
-        )}
-        <div className="bg-red-500 hidden md:block md:w-[20%] md:h-[100vh] font-bold ">
-          <ul className="flex flex-col text-center items-center justify-center my-20 capitalize">
-            <li className="py-10">Add User</li>
-            <li className="py-10">Add Tracking Details</li>
-            <li className="py-10">Edit Tracking Details</li>
-          </ul>
+      </div>
+
+      <div className=" mx-2 md:mx-10 my-10 ">
+        {" "}
+        <div className="h2 py-5 font-bold">
+          <h2 className="text-2xl md:text-4xl">Sender Details</h2>
         </div>
-        <div className=" flex-1 text-black font-light px-2 pt-3">
-          <div className="">
-            {" "}
-            <i>
-              <h2>Howdy!! {Admin.username}</h2>
-            </i>
-          </div>
-          <div className="grid md:grid-cols-2 my-10 gap-2 items-center  text-center ">
-            <div className="box bg-blue-300 py-5 flex items-center flex-col">
-              <GoIssueTracks fontSize={50} />
-              <h2 className="text-2xl tracking-wider py-3">Trackers</h2>
-              <p className="text-xl">20</p>
-            </div>
-            <div className="box bg-blue-300 py-5 flex items-center flex-col">
-              <HiUsers fontSize={50} />
-              <h2 className="text-2xl tracking-wider py-3">Users</h2>
-              <p className="text-xl">20</p>
-            </div>
-          </div>
+        <div className=" overflow-x-scroll">
+          <table className=" min-w-full">
+            <thead className="text-center border">
+              <tr>
+                <td scope="col" className="py-2 px-2 border ">
+                  ID
+                </td>
+                <td scope="col" className="py-2 px-2 border ">
+                  Email
+                </td>
+                <td scope="col" className="py-2 px-2 border ">
+                  USPS
+                </td>
+                <td scope="col" className="py-2 px-2 border ">
+                  First Name
+                </td>
+                <td scope="col" className="py-2 px-2 border ">
+                  Last Name
+                </td>
+
+                <td scope="col" className="py-2 px-2 border ">
+                  Action
+                </td>
+              </tr>
+            </thead>
+            {loading ? (
+              <>Loading...............</>
+            ) : (
+              detail.map((data) => (
+                <tbody className=" border text-center ">
+                  <td className="py-5 px-2">{data._id}</td>
+                  <td className="px-5">{data.email}</td>
+                  <td className="px-5">{data.USPS}</td>
+                  <td className="px-5">{data.firstName}</td>
+                  <td className="px-5">{data.lastName}</td>
+
+                  <td className="px-5">
+                    <div className="flex items-center text-center justify-center">
+                      <Link>
+                        <p className="py-5">Edit</p>
+                      </Link>
+                      <Link>
+                        <p className="px-5">Delete</p>
+                      </Link>
+                    </div>
+                  </td>
+                </tbody>
+              ))
+            )}
+          </table>
         </div>
       </div>
     </div>

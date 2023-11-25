@@ -3,8 +3,8 @@ import {
   createInfo,
   deleteInfo,
   getAllTInfo,
-  getSingleTrack,
   updateInfo,
+  getSingleTrack,
 } from "../controllers/Tracking.js";
 import { VToken } from "../Middleware/AuthVal.js";
 

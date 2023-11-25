@@ -15,7 +15,8 @@ const Dashboard = () => {
     <>
       <div>
         <Dsh title={"Dashboard"} page={"/ Dashboard"} />
-
+        {/* {user.firstName}
+        <br></br> */}
         {Details.map((det, key) => (
           <div key={key}>
             <div className="header p-5 text-xl md:text-2xl uppercase text-teal-900 text-center">

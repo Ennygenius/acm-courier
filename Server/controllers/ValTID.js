@@ -1,5 +1,6 @@
 import Courier from "../Models/CourierModels.js";
 import jwt from "jsonwebtoken";
+import TrackInfo from "../Models/TrackingInfo.js";
 
 const valTID = async (req, res) => {
   const { TrackingId } = req.body;
@@ -37,5 +38,13 @@ const getUser = async (req, res) => {
     console.log(error);
   }
 };
+const getTrackById = async (req, res) => {
+  try {
+    const info = await TrackInfo.findById(req.params.id);
+    res.json({ info });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
-export { valTID, getUser };
+export { valTID, getUser, getTrackById };

@@ -31,7 +31,7 @@ export const VToken = async (req, res, next) => {
         const admin = payload.user;
         req.admin = admin;
 
-        console.log(req.admin);
+        // console.log(req.admin);
 
         next();
       } catch (error) {

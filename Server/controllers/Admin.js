@@ -81,5 +81,5 @@ export const login = async (req, res) => {
 
 export const getMe = async (req, res) => {
   res.json(req.admin);
-  console.log(req.admin);
+  // console.log(req.admin);
 };

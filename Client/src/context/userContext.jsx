@@ -4,7 +4,7 @@ import { useState, createContext, useEffect } from "react";
 export const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [Admin, setAdmin] = useState({});
   const [Details, setDetails] = useState([]);
   const [message, setMessage] = useState("");
@@ -24,7 +24,7 @@ export const UserContextProvider = ({ children }) => {
           },
         });
         setUser(response.data.user);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error("Error fetching user profile", error);
       }
@@ -45,7 +45,7 @@ export const UserContextProvider = ({ children }) => {
           setMessage(message);
         } else {
           setDetails(response.data.Tinfo);
-          console.log(response.data.Tinfo);
+          // console.log(response.data.Tinfo);
         }
       } catch (error) {
         console.error("Error fetching user profile", error);
@@ -64,7 +64,7 @@ export const UserContextProvider = ({ children }) => {
           },
         });
         setAdmin(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error("Error fetching user profile", error);
       }

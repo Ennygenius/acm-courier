@@ -42,11 +42,14 @@ const deleteInfo = async (req, res) => {
 };
 
 const getSingleTrack = async (req, res) => {
-  const user = req.user;
-  // console.log(user);
-  const info = await TrackInfo.find({ courier: user }).populate("courier");
-  res.json({ Tinfo: info });
-  console.log(info);
+  try {
+    const user = req.user;
+    const info = await TrackInfo.find({ courier: user }).populate("courier");
+    res.json({ Tinfo: info });
+    console.log(info);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export { getAllTInfo, createInfo, updateInfo, deleteInfo, getSingleTrack };
