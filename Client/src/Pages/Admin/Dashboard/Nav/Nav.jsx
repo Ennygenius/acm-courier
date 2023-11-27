@@ -8,7 +8,7 @@ import { UserContext } from "../../../../context/userContext";
 const Nav = () => {
   const navigate = useNavigate();
   const [navOpen, setNavOpen] = useState(false);
-  const { Admin } = useContext(UserContext);
+  const { Admin, modal, openModal } = useContext(UserContext);
 
   const controlNav = () => {
     setNavOpen(!navOpen);
@@ -32,7 +32,7 @@ const Nav = () => {
         </div>
 
         <ul className="hidden md:flex font-bold text-sm capitalize">
-          <li className="px-5">
+          <li className="px-5" onClick={openModal}>
             <Link>Add Tracking</Link>
           </li>
 
@@ -41,7 +41,9 @@ const Nav = () => {
           </li>
         </ul>
 
-        <div className="hidden md:flex text-sm">Howdy, {Admin.username}</div>
+        <div className="hidden md:flex text-sm">
+          Howdy, <span className="capitalize pl-2"> {Admin.username}</span>
+        </div>
 
         <div className="hidden md:flex text-sm">
           <button className="bg-blue-300 border-none btn" onClick={Logout}>

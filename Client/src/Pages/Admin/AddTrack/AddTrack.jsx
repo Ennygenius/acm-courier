@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Base } from "../../../../axios/axios";
-import { useNavigate, useParams } from "react-router-dom";
-// import {} from "react-router-dom";
+import { Base } from "../../../axios/axios";
 
-const EditTrack = () => {
-  const { id } = useParams();
-  const URI = `trackingInfo/${id}`;
-  const URI2 = "courier/";
-  const URI3 = `login/${id}`;
-
-  const navigate = useNavigate();
-  const [user, setUser] = useState({});
+const AddTrack = () => {
+  const URI3 = `trackingInfo/`;
+  const URI4 = "courier/";
   const [data, setdata] = useState([]);
   const [courier, setCourier] = useState("");
   const [from, setFrom] = useState("");
@@ -22,53 +15,8 @@ const EditTrack = () => {
   const [recieverNumber, setRecieverNumber] = useState("");
   const [trackingStatus, setTrackingStatus] = useState("");
   const [seviceMode, setSeviceMode] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await Base.get(URI2);
-      setdata(response.data.courier);
-      console.log(response.data.courier);
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await Base.get(URI3);
-
-      const {
-        courier,
-        from,
-        to,
-        address,
-        weight,
-        goodsDetails,
-        recieverName,
-        recieverNumber,
-        trackingStatus,
-        seviceMode,
-      } = response.data.info;
-
-      setUser(response.data.info);
-      console.log(response.data.info);
-      setCourier(courier);
-      setFrom(from);
-      setAddress(address);
-      setWeight(weight);
-      setDetails(goodsDetails);
-      setTo(to);
-      setRecieverName(recieverName);
-      setRecieverNumber(recieverNumber);
-      setTrackingStatus(trackingStatus);
-      setSeviceMode(seviceMode);
-    };
-
-    fetchData();
-  }, []);
-
   const EditTrans = async () => {
-    const base = await Base.patch(URI, {
+    const base = await Base.post(URI3, {
       courier,
       from,
       to,
@@ -76,9 +24,11 @@ const EditTrack = () => {
       address,
       recieverName,
       recieverNumber,
+      weight,
       seviceMode,
       trackingStatus,
     });
+    console.log(base);
   };
 
   const HandleSubmit = (e) => {
@@ -91,14 +41,26 @@ const EditTrack = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await Base.get(URI4);
+      setdata(response.data.courier);
+      console.log(response.data.courier);
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <div className=" flex justify-center items-center flex-col shadow-lg w-[90%] md:w-[50%] m-auto">
-      <div className="mt-5">
-        <h2 className="font-bold text-2xl text-blue-600">
-          Edit Tracking Details
-        </h2>
-      </div>
-      <form action="" className="w-[80%]" onSubmit={HandleSubmit}>
+    <div className="absolute text-white w-full bg-[rgba(0,0,0,0.5)] p-10 flex justify-center items-center">
+      <form
+        action=""
+        className="bg-white p-5 text-black"
+        onSubmit={HandleSubmit}
+      >
+        <h2 className="text-xl">Add Tracking Details</h2>
+
         <div className="my-5 ">
           <label className="" htmlFor="">
             Courier
@@ -115,7 +77,9 @@ const EditTrack = () => {
           >
             {data.map((data) => (
               <>
-                <option value={data.firstName}>{data._id}</option>
+                <option key={data._id} value={data._id}>
+                  {data._id}
+                </option>
               </>
             ))}
           </select>
@@ -229,14 +193,6 @@ const EditTrack = () => {
           <label className="" htmlFor="">
             Tracking Status
           </label>
-          {/* <input
-            type="text"
-            onChange={(e) => {
-              setTo(e.target.value);
-            }}
-            placeholder=""
-            className="w-full p-3 border border-blue-200  "
-          /> */}
 
           <select
             name=""
@@ -251,6 +207,28 @@ const EditTrack = () => {
             <option value="PENDING">PENDING</option>
             <option value="DELIVERED">DELIVERED</option>
           </select>
+
+          {/* <select name="" id="" option={setTrackingStatus} /> */}
+        </div>
+
+        <div className="my-5">
+          <label className="" htmlFor="">
+            Service Mode
+          </label>
+
+          <select
+            name=""
+            id=""
+            value={seviceMode}
+            className="w-full p-3 border border-blue-200  "
+            onChange={(e) => {
+              setSeviceMode(e.target.value);
+            }}
+          >
+            <option value="AIR">AIR</option>
+            <option value="SHIP">SHIP</option>
+            <option value="LAND">LAND</option>
+          </select>
         </div>
         <br />
         <input
@@ -263,4 +241,4 @@ const EditTrack = () => {
   );
 };
 
-export default EditTrack;
+export default AddTrack;

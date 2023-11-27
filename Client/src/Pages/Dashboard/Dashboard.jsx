@@ -32,7 +32,7 @@ const Dashboard = () => {
               )}
             </div>
 
-            <div className="my-10 text-center flex items-center mx-5 ">
+            <div className="my-10 text-center flex items-center justify-center mx-5 ">
               <div className="bg-red-500 w-[5%] rounded-full p-5"></div>
               <hr className="border w-20" />
               <div className="bg-red-500 w-[5%] rounded-full p-5"></div>

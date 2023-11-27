@@ -8,6 +8,7 @@ export const UserContextProvider = ({ children }) => {
   const [Admin, setAdmin] = useState({});
   const [Details, setDetails] = useState([]);
   const [message, setMessage] = useState("");
+  const [modal, setModal] = useState(false);
 
   const URI = "/login/user";
   const URI2 = "/trackingInfo/details";
@@ -73,6 +74,11 @@ export const UserContextProvider = ({ children }) => {
     fetchAdminProfile();
   }, []);
 
+  const openModal = () => {
+    setModal(!modal);
+    console.log("clicked");
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -84,6 +90,9 @@ export const UserContextProvider = ({ children }) => {
         setMessage,
         Admin,
         setAdmin,
+        setModal,
+        modal,
+        openModal,
       }}
     >
       {children}

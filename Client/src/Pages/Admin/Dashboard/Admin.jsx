@@ -9,11 +9,14 @@ import { GoIssueTracks } from "react-icons/go";
 import { HiUsers } from "react-icons/hi2";
 import { Base } from "../../../axios/axios";
 import Nav from "./Nav/Nav";
+import AddTrack from "../AddTrack/AddTrack";
 
 const Admin = () => {
   const navigate = useNavigate();
   const URI = "trackingInfo/";
   const URI2 = "courier/";
+  const { modal } = useContext(UserContext);
+
   const [TInfos, setTInfo] = useState([]);
   const [detail, setDetail] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,8 +44,9 @@ const Admin = () => {
   }, []);
 
   return (
-    <div className="">
+    <div className="relative">
       <Nav />
+      {modal && <AddTrack />}
 
       <div className=" mx-2 md:mx-10 my-10 ">
         {" "}
@@ -146,6 +150,10 @@ const Admin = () => {
                 </td>
 
                 <td scope="col" className="py-2 px-2 border ">
+                  Tracking Id
+                </td>
+
+                <td scope="col" className="py-2 px-2 border ">
                   Action
                 </td>
               </tr>
@@ -160,6 +168,7 @@ const Admin = () => {
                   <td className="px-5">{data.USPS}</td>
                   <td className="px-5">{data.firstName}</td>
                   <td className="px-5">{data.lastName}</td>
+                  <td className="px-5">{data.TrackingId}</td>
 
                   <td className="px-5">
                     <div className="flex items-center text-center justify-center">
