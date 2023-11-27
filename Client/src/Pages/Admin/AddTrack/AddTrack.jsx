@@ -34,9 +34,25 @@ const AddTrack = () => {
   const HandleSubmit = (e) => {
     try {
       e.preventDefault();
-      EditTrans();
-      alert("success");
-      navigate("/admin");
+      if (
+        !courier ||
+        !from ||
+        !to ||
+        !goodsDetails ||
+        !address ||
+        !recieverName ||
+        !recieverNumber ||
+        !weight ||
+        !seviceMode ||
+        !trackingStatus
+      ) {
+        alert("fill in the fields");
+      } else {
+        EditTrans();
+        alert("success");
+        window.location.reload();
+        // navigate("/admin");
+      }
     } catch (error) {
       console.log(error);
     }
