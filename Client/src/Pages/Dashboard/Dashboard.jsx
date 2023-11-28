@@ -8,9 +8,6 @@ const Dashboard = () => {
   console.log(user);
   console.log(Details);
 
-  // console.log(Details.map((det) => det._id));
-  console.log(message);
-
   return (
     <>
       <div>
@@ -81,6 +78,15 @@ const Dashboard = () => {
                 </h2>
                 <h2 className="border w-full text-center py-5 ">
                   {det.address}
+                </h2>
+              </div>
+
+              <div className="flex justify-evenly border-none">
+                <h2 className="border w-full text-center py-5 text-slate-500 ">
+                  Delivery Date
+                </h2>
+                <h2 className="border w-full text-center py-5 ">
+                  {det.deliveryDate}
                 </h2>
               </div>
 

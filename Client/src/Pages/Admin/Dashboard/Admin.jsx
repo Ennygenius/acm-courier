@@ -1,18 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../context/userContext";
 import { Link, useNavigate } from "react-router-dom";
-import { data } from "../../../Components/Nav/data";
-import { FaTruckFast } from "react-icons/fa6";
-import { AiOutlineAlignRight, AiOutlineClose } from "react-icons/ai";
-import MNav from "../../../Components/Nav/MNav";
-import { GoIssueTracks } from "react-icons/go";
-import { HiUsers } from "react-icons/hi2";
 import { Base } from "../../../axios/axios";
 import Nav from "./Nav/Nav";
 import AddTrack from "../AddTrack/AddTrack";
 
 const Admin = () => {
-  const navigate = useNavigate();
   const URI = "trackingInfo/";
   const URI2 = "courier/";
   const { modal } = useContext(UserContext);
@@ -26,7 +19,6 @@ const Admin = () => {
       try {
         setLoading(true);
         const response = await Base.get(URI);
-        console.log(response.data.info);
         setTInfo(response.data.info);
         setLoading(false);
       } catch (error) {
@@ -37,7 +29,6 @@ const Admin = () => {
 
     const base2 = async () => {
       const response = await Base.get(URI2);
-      console.log(response.data.courier);
       setDetail(response.data.courier);
     };
     base2();
@@ -49,7 +40,6 @@ const Admin = () => {
       {modal && <AddTrack />}
 
       <div className=" mx-2 md:mx-10 my-10 ">
-        {" "}
         <div className="h2 py-5 font-bold">
           <h2 className="text-2xl md:text-4xl">All Tracking Details</h2>
         </div>
@@ -84,6 +74,10 @@ const Admin = () => {
                 <td scope="col" className="py-2 px-2 border ">
                   Courier
                 </td>
+
+                <td scope="col" className="py-2 px-2 border ">
+                  Address
+                </td>
                 <td scope="col" className="py-2 px-2 border ">
                   Action
                 </td>
@@ -106,6 +100,7 @@ const Admin = () => {
                   <td className="px-5">
                     {data.courier.map((data) => data.email)}
                   </td>
+                  <td className="px-5">{data.address}</td>
 
                   <td className="px-5">
                     <div className="flex items-center text-center justify-center">
@@ -125,7 +120,6 @@ const Admin = () => {
       </div>
 
       <div className=" mx-2 md:mx-10 my-10 ">
-        {" "}
         <div className="h2 py-5 font-bold">
           <h2 className="text-2xl md:text-4xl">Sender Details</h2>
         </div>

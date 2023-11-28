@@ -65,7 +65,6 @@ const createInfo = async (req, res) => {
 const updateInfo = async (req, res) => {
   try {
     const info = await TrackInfo.findByIdAndUpdate(req.params.id, req.body);
-
     res.json({ info });
   } catch (error) {
     console.log(error);

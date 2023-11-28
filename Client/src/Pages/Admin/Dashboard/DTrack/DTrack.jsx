@@ -1,6 +1,6 @@
 import React from "react";
 import { Base } from "../../../../axios/axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, redirect } from "react-router-dom";
 
 const DTrack = () => {
   const { id } = useParams();
@@ -12,14 +12,15 @@ const DTrack = () => {
       await Base.delete(URI);
       navigate("/admin");
     } catch (error) {
-      console.log(error.measage);
+      console.log(error.message);
     }
   };
 
   if (confirm(`Do you want to delete ${id}`)) {
     Delete();
+  } else {
+    redirect("/admin");
   }
-
   return <div></div>;
 };
 

@@ -15,7 +15,7 @@ const AddTrack = () => {
   const [recieverNumber, setRecieverNumber] = useState("");
   const [trackingStatus, setTrackingStatus] = useState("");
   const [seviceMode, setSeviceMode] = useState("");
-  const EditTrans = async () => {
+  const AddTrans = async () => {
     const base = await Base.post(URI3, {
       courier,
       from,
@@ -28,7 +28,6 @@ const AddTrack = () => {
       seviceMode,
       trackingStatus,
     });
-    console.log(base);
   };
 
   const HandleSubmit = (e) => {
@@ -48,10 +47,9 @@ const AddTrack = () => {
       ) {
         alert("fill in the fields");
       } else {
-        EditTrans();
+        AddTrans();
         alert("success");
         window.location.reload();
-        // navigate("/admin");
       }
     } catch (error) {
       console.log(error);
@@ -223,8 +221,6 @@ const AddTrack = () => {
             <option value="PENDING">PENDING</option>
             <option value="DELIVERED">DELIVERED</option>
           </select>
-
-          {/* <select name="" id="" option={setTrackingStatus} /> */}
         </div>
 
         <div className="my-5">

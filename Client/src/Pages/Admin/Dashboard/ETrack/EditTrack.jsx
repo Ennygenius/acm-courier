@@ -74,6 +74,7 @@ const EditTrack = () => {
       to,
       goodsDetails,
       address,
+      weight,
       recieverName,
       recieverNumber,
       seviceMode,
@@ -115,7 +116,7 @@ const EditTrack = () => {
           >
             {data.map((data) => (
               <>
-                <option value={data.firstName}>{data._id}</option>
+                <option value={data._id}>{data._id}</option>
               </>
             ))}
           </select>
