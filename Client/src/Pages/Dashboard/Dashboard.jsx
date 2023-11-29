@@ -2,6 +2,13 @@ import React, { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import Dsh from "../../Components/dsh/Dsh";
 import Footer from "../../Components/Footer/Footer";
+import {
+  AiOutlineFundView,
+  AiOutlineGold,
+  AiOutlineGroup,
+  AiOutlineHeatMap,
+  AiOutlineHome,
+} from "react-icons/ai";
 
 const Dashboard = () => {
   const { user, Details, message } = useContext(UserContext);
@@ -29,17 +36,38 @@ const Dashboard = () => {
               )}
             </div>
 
-            <div className="my-10 text-center flex items-center justify-center mx-5 ">
-              <div className="bg-red-500 w-[5%] rounded-full p-5"></div>
+            <div className="my-10 text-center md:flex grid grid-cols-3 place-items-center items-center justify-center mx-5 ">
+              <div className="bg-red-500 md:w-[5%] w-[60%] rounded-full p-5 text-center">
+                <div className="flex justify-center items-center">
+                  <AiOutlineHeatMap fontSize={30} color />
+                </div>
+              </div>
               <hr className="border w-20" />
-              <div className="bg-red-500 w-[5%] rounded-full p-5"></div>
+              <div className="bg-red-500 md:w-[5%] w-[60%]  rounded-full p-5">
+                <div className="flex justify-center items-center">
+                  <AiOutlineGold fontSize={30} color />
+                </div>
+              </div>
               <hr className="border w-20" />
-              <div className="bg-red-500 w-[5%] rounded-full p-5"></div>
+              <div className="bg-red-500 md:w-[5%] w-[60%]  rounded-full p-5">
+                <div className="flex justify-center items-center">
+                  <AiOutlineHome fontSize={30} color />
+                </div>
+              </div>
               <hr className="border w-20" />
-              <div className="bg-red-500 w-[5%] rounded-full p-5"></div>
+              <div className="bg-red-500 md:w-[5%] w-[60%]  rounded-full p-5">
+                <div className="flex justify-center items-center">
+                  <AiOutlineFundView fontSize={30} />
+                </div>
+              </div>
 
               <hr className="border w-20" />
-              <div className="bg-red-500 w-[5%] rounded-full p-5"></div>
+              <div className="bg-red-500 md:w-[5%] w-[60%]  rounded-full p-5">
+                <div className="flex justify-center items-center">
+                  {" "}
+                  <AiOutlineGroup fontSize={30} />
+                </div>
+              </div>
             </div>
 
             <div className=" w-[90%] md:w-[60%] m-auto my-5 ">

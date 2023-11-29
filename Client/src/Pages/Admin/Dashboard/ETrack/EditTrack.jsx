@@ -230,14 +230,6 @@ const EditTrack = () => {
           <label className="" htmlFor="">
             Tracking Status
           </label>
-          {/* <input
-            type="text"
-            onChange={(e) => {
-              setTo(e.target.value);
-            }}
-            placeholder=""
-            className="w-full p-3 border border-blue-200  "
-          /> */}
 
           <select
             name=""
