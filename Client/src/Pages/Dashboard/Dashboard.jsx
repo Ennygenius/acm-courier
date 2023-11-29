@@ -36,39 +36,75 @@ const Dashboard = () => {
               )}
             </div>
 
-            <div className="my-10 text-center md:flex grid grid-cols-3 place-items-center items-center justify-center mx-5 ">
-              <div className="bg-red-500 md:w-[5%] w-[60%] rounded-full p-5 text-center">
-                <div className="flex justify-center items-center">
-                  <AiOutlineHeatMap fontSize={30} color />
+            {det.trackingStatus === "PENDING" ? (
+              <div className="my-10 text-center md:flex grid grid-cols-3 place-items-center items-center justify-center mx-5 ">
+                <div className="bg-red-500 border  md:w-[5%] w-[60%] rounded-full p-5 text-center">
+                  <div className="flex justify-center items-center ">
+                    <AiOutlineHeatMap fontSize={30} color />
+                  </div>
                 </div>
-              </div>
-              <hr className="border w-20" />
-              <div className="bg-red-500 md:w-[5%] w-[60%]  rounded-full p-5">
-                <div className="flex justify-center items-center">
-                  <AiOutlineGold fontSize={30} color />
+                <hr className="border w-20" />
+                <div className="bg-red-500  md:w-[5%] w-[60%]  rounded-full p-5">
+                  <div className="flex justify-center items-center">
+                    <AiOutlineGold fontSize={30} color />
+                  </div>
                 </div>
-              </div>
-              <hr className="border w-20" />
-              <div className="bg-red-500 md:w-[5%] w-[60%]  rounded-full p-5">
-                <div className="flex justify-center items-center">
-                  <AiOutlineHome fontSize={30} color />
+                <hr className="border w-20" />
+                <div className="bg-white border border-black md:w-[5%] w-[60%]  rounded-full p-5">
+                  <div className="flex justify-center items-center">
+                    <AiOutlineHome fontSize={30} color />
+                  </div>
                 </div>
-              </div>
-              <hr className="border w-20" />
-              <div className="bg-red-500 md:w-[5%] w-[60%]  rounded-full p-5">
-                <div className="flex justify-center items-center">
-                  <AiOutlineFundView fontSize={30} />
+                <hr className="border w-20" />
+                <div className="bg-white border border-black md:w-[5%] w-[60%]  rounded-full p-5">
+                  <div className="flex justify-center items-center">
+                    <AiOutlineFundView fontSize={30} />
+                  </div>
                 </div>
-              </div>
 
-              <hr className="border w-20" />
-              <div className="bg-red-500 md:w-[5%] w-[60%]  rounded-full p-5">
-                <div className="flex justify-center items-center">
-                  {" "}
-                  <AiOutlineGroup fontSize={30} />
+                <hr className="border w-20" />
+                <div className="bg-white border border-black md:w-[5%] w-[60%]  rounded-full p-5">
+                  <div className="flex justify-center items-center">
+                    {" "}
+                    <AiOutlineGroup fontSize={30} />
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="my-10 text-center md:flex grid grid-cols-3 place-items-center items-center justify-center mx-5 ">
+                <div className="bg-red-500 md:w-[5%] w-[60%] rounded-full p-5 text-center">
+                  <div className="flex justify-center items-center">
+                    <AiOutlineHeatMap fontSize={30} color />
+                  </div>
+                </div>
+                <hr className="border w-20" />
+                <div className="bg-red-500 md:w-[5%] w-[60%]  rounded-full p-5">
+                  <div className="flex justify-center items-center">
+                    <AiOutlineGold fontSize={30} color />
+                  </div>
+                </div>
+                <hr className="border w-20" />
+                <div className="bg-red-500 md:w-[5%] w-[60%]  rounded-full p-5">
+                  <div className="flex justify-center items-center">
+                    <AiOutlineHome fontSize={30} color />
+                  </div>
+                </div>
+                <hr className="border w-20" />
+                <div className="bg-red-500 md:w-[5%] w-[60%]  rounded-full p-5">
+                  <div className="flex justify-center items-center">
+                    <AiOutlineFundView fontSize={30} />
+                  </div>
+                </div>
+
+                <hr className="border w-20" />
+                <div className="bg-red-500 md:w-[5%] w-[60%]  rounded-full p-5">
+                  <div className="flex justify-center items-center">
+                    {" "}
+                    <AiOutlineGroup fontSize={30} />
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className=" w-[90%] md:w-[60%] m-auto my-5 ">
               <h2 className="text-md text-slate-600 text-center border py-5">
