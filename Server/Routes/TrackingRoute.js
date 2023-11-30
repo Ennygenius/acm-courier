@@ -6,14 +6,17 @@ import {
   updateInfo,
   getSingleTrack,
 } from "../controllers/Tracking.js";
+import multer from "multer";
 import { VToken } from "../Middleware/AuthVal.js";
+import storage from "../cloudinary.js";
 
+const upload = multer({ storage: storage });
 const router = express();
 
 router
   .get("/", getAllTInfo)
-  .post("/", createInfo)
-  .patch("/:id", updateInfo)
+  .post("/", upload.single("goodsImage"), createInfo)
+  .patch("/:id", upload.single("goodsImage"), updateInfo)
   .get("/details", VToken, getSingleTrack)
   .delete("/:id", deleteInfo);
 

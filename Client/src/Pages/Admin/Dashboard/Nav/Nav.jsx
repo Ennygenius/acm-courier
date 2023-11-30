@@ -32,12 +32,12 @@ const Nav = () => {
         </div>
 
         <ul className="hidden md:flex font-bold text-sm capitalize">
-          <li className="px-5" onClick={openModal}>
-            <Link>Add Tracking</Link>
+          <li className="px-5 cursor-pointer" onClick={openModal}>
+            Add Tracking
           </li>
 
           <li>
-            <Link>Add Courier</Link>
+            <Link to={"/addCourier"}>Add Courier</Link>
           </li>
         </ul>
 

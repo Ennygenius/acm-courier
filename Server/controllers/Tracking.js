@@ -1,8 +1,6 @@
 import TrackInfo from "../Models/TrackingInfo.js";
-import jwt from "jsonwebtoken";
-import Courier from "../Models/CourierModels.js";
-import mongoose from "mongoose";
-// import { v2 as cloudinary } from "cloudinary";
+
+import { v2 as cloudinary } from "cloudinary";
 
 const getAllTInfo = async (req, res) => {
   try {
@@ -19,7 +17,6 @@ const getAllTInfo = async (req, res) => {
 const createInfo = async (req, res) => {
   const {
     courier,
-    goodsImage,
     trackingStatus,
     from,
     to,
@@ -32,16 +29,11 @@ const createInfo = async (req, res) => {
     recieverNumber,
   } = req.body;
 
-  // const convertedCourierData = courier.map(
-  //   (item) => new mongoose.Types.ObjectId(item)
-  // );
   try {
-    // const result = await cloudinary.uploader.upload(req.file.path);
-
+    const result = await cloudinary.uploader.upload(req.file.path);
     const info = await TrackInfo.create({
       courier,
-      // courier: convertedCourierData,
-      goodsImage,
+      goodsImage: result.secure_url,
       trackingStatus,
       from,
       to,
@@ -54,8 +46,9 @@ const createInfo = async (req, res) => {
       recieverNumber,
     });
     if (!info) {
-      res.json({ message: "please the fields are required" });
+      return res.json({ message: "please the fields are required" });
     }
+    // console.log(req.file, req.body);
     res.json({ info });
   } catch (error) {
     console.log(error);
@@ -63,8 +56,36 @@ const createInfo = async (req, res) => {
 };
 
 const updateInfo = async (req, res) => {
+  const {
+    courier,
+    trackingStatus,
+    from,
+    to,
+    seviceMode,
+    weight,
+    goodsDetails,
+    address,
+    deliveryDate,
+    recieverName,
+    recieverNumber,
+  } = req.body;
+
   try {
-    const info = await TrackInfo.findByIdAndUpdate(req.params.id, req.body);
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const info = await TrackInfo.findByIdAndUpdate(req.params.id, {
+      courier,
+      goodsImage: result.secure_url,
+      trackingStatus,
+      from,
+      to,
+      seviceMode,
+      weight,
+      goodsDetails,
+      address,
+      deliveryDate,
+      recieverName,
+      recieverNumber,
+    });
     res.json({ info });
   } catch (error) {
     console.log(error);
@@ -81,7 +102,7 @@ const getSingleTrack = async (req, res) => {
     const user = req.user;
     const info = await TrackInfo.find({ courier: user }).populate("courier");
     res.json({ Tinfo: info });
-    console.log(info);
+    // console.log(info);
   } catch (error) {
     console.log(error);
   }

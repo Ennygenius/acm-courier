@@ -14,6 +14,7 @@ import Services from "./Pages/Services/Services";
 import Contact from "./Pages/Contact/Contact";
 import EditTrack from "./Pages/Admin/Dashboard/ETrack/EditTrack";
 import DTrack from "./Pages/Admin/Dashboard/DTrack/DTrack";
+import AddCourier from "./Pages/Admin/AddCourier/AddCourier";
 
 function App() {
   const [loggedin, setIsLoggedin] = useState(false);
@@ -42,6 +43,7 @@ function App() {
           <Route path="/admin" element={<Admin />}></Route>
           <Route path="/ETrack/:id" element={<EditTrack />}></Route>
           <Route path="/DTrack/:id" element={<DTrack />}></Route>
+          <Route path="/addCourier" element={<AddCourier />}></Route>
         </>
       ) : null}
 

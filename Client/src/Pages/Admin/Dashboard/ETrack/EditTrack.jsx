@@ -18,6 +18,7 @@ const EditTrack = () => {
   const [goodsDetails, setDetails] = useState("");
   const [weight, setWeight] = useState(Number);
   const [address, setAddress] = useState("");
+  const [goodsImage, setGoodsImage] = useState(null);
   const [recieverName, setRecieverName] = useState("");
   const [recieverNumber, setRecieverNumber] = useState("");
   const [trackingStatus, setTrackingStatus] = useState("");
@@ -44,6 +45,7 @@ const EditTrack = () => {
         address,
         weight,
         goodsDetails,
+        goodsImage,
         recieverName,
         recieverNumber,
         trackingStatus,
@@ -57,6 +59,7 @@ const EditTrack = () => {
       setAddress(address);
       setWeight(weight);
       setDetails(goodsDetails);
+      setGoodsImage(goodsImage);
       setTo(to);
       setRecieverName(recieverName);
       setRecieverNumber(recieverNumber);
@@ -68,20 +71,27 @@ const EditTrack = () => {
   }, []);
 
   const EditTrans = async () => {
-    const base = await Base.patch(URI, {
-      courier,
-      from,
-      to,
-      goodsDetails,
-      address,
-      weight,
-      recieverName,
-      recieverNumber,
-      seviceMode,
-      trackingStatus,
-    });
-  };
+    const formData = new FormData();
+    formData.append("courier", courier);
+    formData.append("from", from);
+    formData.append("to", to);
+    formData.append("goodsDetails", goodsDetails);
+    formData.append("address", address);
+    formData.append("weight", weight);
+    formData.append("recieverName", recieverName);
+    formData.append("recieverNumber", recieverNumber);
+    formData.append("seviceMode", seviceMode);
+    formData.append("trackingStatus", trackingStatus);
+    formData.append("goodsImage", goodsImage); // Append the file
 
+    const base = await Base.patch(URI, formData);
+    console.log(base);
+  };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setGoodsImage(file);
+    console.log(file);
+  };
   const HandleSubmit = (e) => {
     try {
       e.preventDefault();
@@ -99,7 +109,13 @@ const EditTrack = () => {
           Edit Tracking Details
         </h2>
       </div>
-      <form action="" className="w-[80%]" onSubmit={HandleSubmit}>
+      <form
+        action=""
+        className="w-[80%]"
+        onSubmit={HandleSubmit}
+        name="Image"
+        encType="multipart/form-data"
+      >
         <div className="my-5 ">
           <label className="" htmlFor="">
             Courier
@@ -245,6 +261,20 @@ const EditTrack = () => {
             <option value="DELIVERED">DELIVERED</option>
           </select>
         </div>
+
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label htmlFor="fileInput">Goods/ Package</label>
+
+          <input
+            type="file"
+            name="Image"
+            accept="/image"
+            className="w-full p-3 border border-blue-200  "
+            id="goodsImage"
+            onChange={handleFileChange}
+          />
+        </div>
+
         <br />
         <input
           type="submit"

@@ -175,7 +175,7 @@ const Dashboard = () => {
                   Weight
                 </h2>
                 <h2 className="border w-full text-center py-5 bg-slate-100">
-                  {det.weight}
+                  <span>{det.weight}</span>kg
                 </h2>
               </div>
 
@@ -238,8 +238,14 @@ const Dashboard = () => {
                 </h2>
               </div>
             </div>
-            <div className="package">
-              <img src={det.img} alt="" />
+
+            <div className=" w-[90%] md:w-[60%] m-auto my-5">
+              <h2 className="text-md text-slate-600 text-center border py-5">
+                Package Image
+              </h2>
+              <div className="package w-[50%] m-auto">
+                <img src={det.goodsImage} className="w-full" alt="" />
+              </div>
             </div>
           </div>
         ))}

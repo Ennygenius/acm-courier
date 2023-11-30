@@ -12,22 +12,29 @@ const AddTrack = () => {
   const [weight, setWeight] = useState(Number);
   const [address, setAddress] = useState("");
   const [recieverName, setRecieverName] = useState("");
+  const [goodsImage, setGoodsImage] = useState(null);
   const [recieverNumber, setRecieverNumber] = useState("");
   const [trackingStatus, setTrackingStatus] = useState("");
   const [seviceMode, setSeviceMode] = useState("");
+
+  const formData = new FormData();
+  formData.append("courier", courier);
+  formData.append("from", from);
+  formData.append("to", to);
+  formData.append("goodsDetails", goodsDetails);
+  formData.append("goodsImage", goodsImage);
+  formData.append("address", address);
+  formData.append("recieverName", recieverName);
+  formData.append("recieverNumber", recieverNumber);
+  formData.append("weight", weight);
+  formData.append("seviceMode", seviceMode);
+  formData.append("trackingStatus", trackingStatus);
   const AddTrans = async () => {
-    const base = await Base.post(URI3, {
-      courier,
-      from,
-      to,
-      goodsDetails,
-      address,
-      recieverName,
-      recieverNumber,
-      weight,
-      seviceMode,
-      trackingStatus,
-    });
+    const base = await Base.post(URI3, formData);
+  };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setGoodsImage(file);
   };
 
   const HandleSubmit = (e) => {
@@ -67,11 +74,13 @@ const AddTrack = () => {
   }, []);
 
   return (
-    <div className="absolute text-white w-full bg-[rgba(0,0,0,0.5)] p-10 flex justify-center items-center">
+    <div className="absolute text-white w-full transition delay-700 duration-300 ease-in-out bg-[rgba(0,0,0,0.5)] p-10 flex justify-center items-center">
       <form
         action=""
         className="bg-white p-5 text-black"
         onSubmit={HandleSubmit}
+        name="goodsImage"
+        encType="multipart/form-data"
       >
         <h2 className="text-xl">Add Tracking Details</h2>
 
@@ -242,6 +251,20 @@ const AddTrack = () => {
             <option value="LAND">LAND</option>
           </select>
         </div>
+
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label htmlFor="fileInput">Goods/ Package</label>
+
+          <input
+            type="file"
+            name="goodsImage"
+            accept="/image"
+            className="w-full p-3 border border-blue-200  "
+            id="goodsImage"
+            onChange={handleFileChange}
+          />
+        </div>
+
         <br />
         <input
           type="submit"
