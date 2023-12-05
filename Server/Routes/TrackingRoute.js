@@ -6,8 +6,8 @@ import {
   updateInfo,
   getSingleTrack,
 } from "../controllers/Tracking.js";
-import multer from "multer";
 import { VToken } from "../Middleware/AuthVal.js";
+import multer from "multer";
 import storage from "../cloudinary.js";
 
 const upload = multer({ storage: storage });

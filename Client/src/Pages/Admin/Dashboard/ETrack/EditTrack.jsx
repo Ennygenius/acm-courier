@@ -88,9 +88,14 @@ const EditTrack = () => {
     console.log(base);
   };
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setGoodsImage(file);
-    console.log(file);
+    try {
+      const file = e.target.files[0];
+      setGoodsImage(file);
+      console.log(file);
+    } catch (error) {
+      console.log(error, "An error occured");
+      // alert(error, "An error occured");
+    }
   };
   const HandleSubmit = (e) => {
     try {
@@ -272,6 +277,10 @@ const EditTrack = () => {
             className="w-full p-3 border border-blue-200  "
             id="goodsImage"
             onChange={handleFileChange}
+            // onChange={(e) => {
+            //   setGoodsImage(e.target.files[0]);
+            // }}
+            value={""}
           />
         </div>
 

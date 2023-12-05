@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../../context/userContext";
+import { UserContext } from "../../../Hooks/context/userContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Base } from "../../../axios/axios";
 import Nav from "./Nav/Nav";
 import AddTrack from "../AddTrack/AddTrack";
 
 const Admin = () => {
+  const navigate = useNavigate();
   const URI = "trackingInfo/";
   const URI2 = "courier/";
   const { modal } = useContext(UserContext);
@@ -34,11 +35,21 @@ const Admin = () => {
     base2();
   }, []);
 
+  const handleLogout = () => {
+    if (window.confirm("do you want to delete? ")) {
+      window.localStorage.removeItem("Atoken");
+      navigate("/admin/signin");
+    }
+  };
+
   return (
     <div className="relative">
       <Nav />
       {modal && <AddTrack />}
 
+      <div className="" onClick={handleLogout}>
+        <h2 className="p-5 md:hidden ">Logout</h2>
+      </div>
       <div className=" mx-2 md:mx-10 my-10 ">
         <div className="h2 py-5 font-bold">
           <h2 className="text-2xl md:text-4xl">All Tracking Details</h2>

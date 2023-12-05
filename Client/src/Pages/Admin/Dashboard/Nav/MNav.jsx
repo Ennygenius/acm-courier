@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { BiSolidTruck } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../../../context/userContext";
+import { UserContext } from "../../../../Hooks/context/userContext";
 
 const MNav = () => {
   const { Admin, modal, openModal } = useContext(UserContext);

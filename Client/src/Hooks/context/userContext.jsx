@@ -1,4 +1,4 @@
-import { Base } from "../axios/axios";
+import { Base } from "../../axios/axios";
 import { useState, createContext, useEffect } from "react";
 
 export const UserContext = createContext();

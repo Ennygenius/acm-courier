@@ -1,45 +1,32 @@
-import mongoose from "mongoose";
-
 import jwt from "jsonwebtoken";
-import Courier from "../Models/CourierModels.js";
 
-export const VToken = async (req, res, next) => {
-  //Grab the auth Header from the req.headers
+export const VToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
-  if (authHeader && authHeader.startsWith("Bearer ")) {
-    const token = authHeader.split(" ")[1];
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Unauthorized: No token found" });
+  }
 
-    if (!token) {
-      res.json("No token found");
+  const token = authHeader.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: No token found" });
+  }
+
+  jwt.verify(token, process.env.Secret, (err, payload) => {
+    if (err) {
+      console.error("JWT verification error:", err);
+      return res.status(401).json({ message: "Unauthorized: Invalid token" });
     }
 
-    jwt.verify(token, process.env.Secret, async (err, payload) => {
-      try {
-        if (err) {
-          console.error("JWT verification error:", err);
-          return res
-            .status(401)
-            .json({ message: "An Error Occurred unauthorized" });
-        }
+    try {
+      req.user = payload.courier; // Set user ID from token payload
+      req.admin = payload.user; // Set admin status from token payload
 
-        // user
-        const userID = payload.courier;
-        req.user = userID;
-
-        //admin
-        const admin = payload.user;
-        req.admin = admin;
-
-        // console.log(req.admin);
-
-        next();
-      } catch (error) {
-        console.log(error);
-        res.json({ message: "unauthorized" });
-      }
-    });
-  } else {
-    res.status(401).json({ message: "Unauthorized" });
-  }
+      next();
+    } catch (error) {
+      console.error("JWT payload error:", error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  });
 };

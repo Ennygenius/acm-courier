@@ -15,37 +15,34 @@ import Contact from "./Pages/Contact/Contact";
 import EditTrack from "./Pages/Admin/Dashboard/ETrack/EditTrack";
 import DTrack from "./Pages/Admin/Dashboard/DTrack/DTrack";
 import AddCourier from "./Pages/Admin/AddCourier/AddCourier";
+import {
+  UseProtect,
+  PrivateRoute,
+  AdminPrivateRoute,
+} from "./Hooks/protectRoute/Protect";
 
 function App() {
-  const [loggedin, setIsLoggedin] = useState(false);
-  const token = localStorage.getItem("token");
-  const Atoken = localStorage.getItem("Atoken");
-  const navigate = useNavigate();
-
   return (
     <Routes>
       <Route path="/" element={<Home />}></Route>
       <Route path="/about" element={<About />}></Route>
       <Route path="/services" element={<Services />}></Route>
       <Route path="/contact" element={<Contact />}></Route>
-
-      {token ? (
+      <Route element={<PrivateRoute />}>
         <Route path="/dashboard" element={<Dashboard />}></Route>
-      ) : (
-        <Route path="/admin/signin" element={<Signin />}></Route>
-      )}
+      </Route>
+
+      <Route path="/admin/signin" element={<Signin />}></Route>
 
       <Route path="/admin/signup" element={<Signup />}></Route>
       <Route path="/admin/signin" element={<Signin />}></Route>
 
-      {Atoken ? (
-        <>
-          <Route path="/admin" element={<Admin />}></Route>
-          <Route path="/ETrack/:id" element={<EditTrack />}></Route>
-          <Route path="/DTrack/:id" element={<DTrack />}></Route>
-          <Route path="/addCourier" element={<AddCourier />}></Route>
-        </>
-      ) : null}
+      <Route element={<AdminPrivateRoute />}>
+        <Route path="/admin" element={<Admin />}></Route>
+        <Route path="/ETrack/:id" element={<EditTrack />}></Route>
+        <Route path="/DTrack/:id" element={<DTrack />}></Route>
+        <Route path="/addCourier" element={<AddCourier />}></Route>
+      </Route>
 
       <Route path="*" element={<NotFOund />}></Route>
     </Routes>

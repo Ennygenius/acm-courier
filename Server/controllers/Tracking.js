@@ -61,6 +61,7 @@ const updateInfo = async (req, res) => {
     trackingStatus,
     from,
     to,
+    // goodsImage,
     seviceMode,
     weight,
     goodsDetails,
@@ -71,10 +72,13 @@ const updateInfo = async (req, res) => {
   } = req.body;
 
   try {
-    const result = await cloudinary.uploader.upload(req.file.path);
+    const result = await cloudinary.uploader.upload(req.file?.path);
+    console.log(result);
+    console.log();
     const info = await TrackInfo.findByIdAndUpdate(req.params.id, {
       courier,
       goodsImage: result.secure_url,
+
       trackingStatus,
       from,
       to,
@@ -88,7 +92,7 @@ const updateInfo = async (req, res) => {
     });
     res.json({ info });
   } catch (error) {
-    console.log(error);
+    console.log(error, "an error occured");
   }
 };
 

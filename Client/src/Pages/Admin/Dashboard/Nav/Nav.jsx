@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaTruckFast } from "react-icons/fa6";
 import { AiOutlineAlignRight, AiOutlineClose } from "react-icons/ai";
 import MNav from "./MNav";
-import { UserContext } from "../../../../context/userContext";
+import { UserContext } from "../../../../Hooks/context/userContext";
 
 const Nav = () => {
   const navigate = useNavigate();
