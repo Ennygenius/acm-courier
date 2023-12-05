@@ -36,7 +36,7 @@ const Admin = () => {
   }, []);
 
   const handleLogout = () => {
-    if (window.confirm("do you want to delete? ")) {
+    if (window.confirm("do you want to logout? ")) {
       window.localStorage.removeItem("Atoken");
       navigate("/admin/signin");
     }
