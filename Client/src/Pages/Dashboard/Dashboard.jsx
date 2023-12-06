@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { UserContext } from "../../Hooks/context/userContext";
 import Dsh from "../../Components/dsh/Dsh";
 import Footer from "../../Components/Footer/Footer";
@@ -12,6 +12,7 @@ import {
 
 const Dashboard = () => {
   const { user, Details, message } = useContext(UserContext);
+
   console.log(user);
   console.log(Details);
 
@@ -19,8 +20,7 @@ const Dashboard = () => {
     <>
       <div>
         <Dsh title={"Dashboard"} page={"/ Dashboard"} />
-        {/* {user.firstName}
-        <br></br> */}
+
         {Details.map((det, key) => (
           <div key={key}>
             <div className="header p-5 text-xl md:text-2xl uppercase text-teal-900 text-center">

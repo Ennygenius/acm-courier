@@ -1,5 +1,6 @@
 import { Base } from "../../axios/axios";
 import { useState, createContext, useEffect } from "react";
+import { USER_URI, DETAILS_URI, SOLO_URER } from "../URI/UseURI";
 
 export const UserContext = createContext();
 
@@ -10,16 +11,13 @@ export const UserContextProvider = ({ children }) => {
   const [message, setMessage] = useState("");
   const [modal, setModal] = useState(false);
 
-  const URI = "/login/user";
-  const URI2 = "/trackingInfo/details";
-  const URI3 = "/auth/me";
   const token = localStorage.getItem("token");
   const Atoken = localStorage.getItem("Atoken");
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await Base.get(URI, {
+        const response = await Base.get(USER_URI, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -37,7 +35,7 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await Base.get(URI2, {
+        const response = await Base.get(DETAILS_URI, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -59,7 +57,7 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     const fetchAdminProfile = async () => {
       try {
-        const response = await Base.get(URI3, {
+        const response = await Base.get(SOLO_URER, {
           headers: {
             Authorization: `Bearer ${Atoken}`,
           },

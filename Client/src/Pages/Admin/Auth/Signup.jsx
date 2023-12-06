@@ -3,10 +3,10 @@ import { Base } from "../../../axios/axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { SIGNUP_URI } from "../../../Hooks/URI/UseURI";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const URI = "auth/signup";
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +23,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const fetchUser = await Base.post(URI, {
+    const fetchUser = await Base.post(SIGNUP_URI, {
       username,
       email,
       password,

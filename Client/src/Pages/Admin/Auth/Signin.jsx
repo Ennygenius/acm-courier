@@ -4,38 +4,47 @@ import { useNavigate } from "react-router-dom";
 import { Base } from "../../../axios/axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { LOGIN_URI } from "../../../Hooks/URI/UseURI";
 
 const Signin = () => {
   const navigate = useNavigate();
-  const URI = "/auth/login";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const [msg, setMessage] = useState("");
 
+  //Functionality for the show password
   const showPassword = () => {
     setIsVisible(!isVisible);
   };
+
+  //login funcion
+  const login = async () => {
+    try {
+      const fetchUser = await Base.post(LOGIN_URI, {
+        email,
+        password,
+      });
+      const { Atoken, msg } = fetchUser?.data;
+      localStorage.setItem("Atoken", Atoken);
+
+      if (msg) {
+        setMessage(msg);
+        toast(msg);
+      } else {
+        handleLogin();
+        navigate("/admin");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //function to call the login function and prevent the page from reloading
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    const fetchUser = await Base.post(URI, {
-      email,
-      password,
-    });
-
-    const { Atoken, msg } = fetchUser?.data;
-
-    localStorage.setItem("Atoken", Atoken);
-
-    if (msg) {
-      setMessage(msg);
-      // alert(msg, "credentials invalid");
-      toast(msg);
-    } else {
-      handleLogin();
-      navigate("/admin");
-    }
+    login();
   };
   return (
     <div className="h-[70vh] flex justify-center items-center flex-col shadow-lg w-[90%] md:w-[50%] m-auto">

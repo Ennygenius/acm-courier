@@ -29,7 +29,8 @@ const Form = (props) => {
 
         localStorage.setItem("token", token);
         navigate(`/dashboard`);
-        alert("Logged in Successfully");
+
+        window.location.reload();
       }
     } catch (err) {
       console.log(err);
