@@ -1,7 +1,7 @@
 import Courier from "../Models/CourierModels.js";
 
 const getAllCourier = async (req, res) => {
-  const courier = await Courier.find();
+  const courier = await Courier.find({});
   res.json({ courier });
 };
 

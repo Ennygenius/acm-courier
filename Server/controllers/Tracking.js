@@ -1,13 +1,8 @@
 import TrackInfo from "../Models/TrackingInfo.js";
 
-import { v2 as cloudinary } from "cloudinary";
-
 const getAllTInfo = async (req, res) => {
   try {
-    const info = await TrackInfo.find({})
-      .populate("courier", "TrackingId email")
-      .lean();
-
+    const info = await TrackInfo.find({}).populate("courier");
     res.json({ info });
   } catch (error) {
     console.log(error);
@@ -30,10 +25,10 @@ const createInfo = async (req, res) => {
   } = req.body;
 
   try {
-    const result = await cloudinary.uploader.upload(req.file.path);
+    const file = await req.file.path;
     const info = await TrackInfo.create({
       courier,
-      goodsImage: result.secure_url,
+      goodsImage: file,
       trackingStatus,
       from,
       to,
@@ -61,7 +56,6 @@ const updateInfo = async (req, res) => {
     trackingStatus,
     from,
     to,
-    // goodsImage,
     seviceMode,
     weight,
     goodsDetails,
@@ -72,13 +66,10 @@ const updateInfo = async (req, res) => {
   } = req.body;
 
   try {
-    const result = await cloudinary.uploader.upload(req.file?.path);
-    console.log(result);
-    console.log();
+    const file = await req.file.path;
     const info = await TrackInfo.findByIdAndUpdate(req.params.id, {
       courier,
-      goodsImage: result.secure_url,
-
+      goodsImage: file,
       trackingStatus,
       from,
       to,

@@ -8,15 +8,15 @@ import {
 } from "../controllers/Tracking.js";
 import { VToken } from "../Middleware/AuthVal.js";
 import multer from "multer";
-import storage from "../cloudinary.js";
+import storage from "../utils/cloudinary.js";
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 const router = express();
 
 router
   .get("/", getAllTInfo)
-  .post("/", upload.single("goodsImage"), createInfo)
-  .patch("/:id", upload.single("goodsImage"), updateInfo)
+  .post("/", upload.single("file"), createInfo)
+  .patch("/:id", upload.single("file"), updateInfo)
   .get("/details", VToken, getSingleTrack)
   .delete("/:id", deleteInfo);
 

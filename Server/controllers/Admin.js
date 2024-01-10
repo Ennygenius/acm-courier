@@ -71,12 +71,10 @@ export const login = async (req, res) => {
     expiresIn: "5d",
   });
 
-  if (user) {
-    res.json({
-      email,
-      Atoken,
-    });
-  }
+  res.json({
+    email,
+    Atoken,
+  });
 };
 
 export const getMe = async (req, res) => {
