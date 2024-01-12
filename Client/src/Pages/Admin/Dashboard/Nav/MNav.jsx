@@ -16,7 +16,7 @@ const MNav = () => {
           </li>
           <li className="py-5 hover:text-blue-300 ">
             {" "}
-            <Link>Add Courier</Link>
+            <Link to={"/addCourier"}>Add Courier</Link>
           </li>
         </ul>
       </div>

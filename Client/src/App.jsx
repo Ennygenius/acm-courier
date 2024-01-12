@@ -12,14 +12,12 @@ import Signin from "./Pages/Admin/Auth/Signin";
 import About from "./Pages/About/About";
 import Services from "./Pages/Services/Services";
 import Contact from "./Pages/Contact/Contact";
-import EditTrack from "./Pages/Admin/Dashboard/ETrack/EditTrack";
 import DTrack from "./Pages/Admin/Dashboard/DTrack/DTrack";
 import AddCourier from "./Pages/Admin/AddCourier/AddCourier";
-import {
-  UseProtect,
-  PrivateRoute,
-  AdminPrivateRoute,
-} from "./Hooks/protectRoute/Protect";
+import { PrivateRoute, AdminPrivateRoute } from "./Hooks/protectRoute/Protect";
+import DeleteCourier from "./Pages/DeleteCourier/DeleteCourier";
+import EditTrack from "./Pages/Admin/Dashboard/ETrack/EditTrack";
+import UpdateCourier from "./Pages/Admin/Dashboard/updateCourier/UpdateCourier";
 
 function App() {
   return (
@@ -41,6 +39,8 @@ function App() {
         <Route path="/admin" element={<Admin />}></Route>
         <Route path="/ETrack/:id" element={<EditTrack />}></Route>
         <Route path="/DTrack/:id" element={<DTrack />}></Route>
+        <Route path="/deleteCourier/:id" element={<DeleteCourier />}></Route>
+        <Route path="/updateCourier/:id" element={<UpdateCourier />}></Route>
         <Route path="/addCourier" element={<AddCourier />}></Route>
       </Route>
 

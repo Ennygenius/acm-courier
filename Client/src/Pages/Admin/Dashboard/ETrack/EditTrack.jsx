@@ -24,6 +24,19 @@ const EditTrack = () => {
   const [trackingStatus, setTrackingStatus] = useState("");
   const [seviceMode, setSeviceMode] = useState("");
 
+  const formData = new FormData();
+  formData.append("courier", courier);
+  formData.append("from", from);
+  formData.append("to", to);
+  formData.append("goodsDetails", goodsDetails);
+  formData.append("address", address);
+  formData.append("weight", weight);
+  formData.append("recieverName", recieverName);
+  formData.append("recieverNumber", recieverNumber);
+  formData.append("seviceMode", seviceMode);
+  formData.append("trackingStatus", trackingStatus);
+  formData.append("image", goodsImage);
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await Base.get(URI2);
@@ -71,19 +84,6 @@ const EditTrack = () => {
   }, []);
 
   const EditTrans = async () => {
-    const formData = new FormData();
-    formData.append("courier", courier);
-    formData.append("from", from);
-    formData.append("to", to);
-    formData.append("goodsDetails", goodsDetails);
-    formData.append("address", address);
-    formData.append("weight", weight);
-    formData.append("recieverName", recieverName);
-    formData.append("recieverNumber", recieverNumber);
-    formData.append("seviceMode", seviceMode);
-    formData.append("trackingStatus", trackingStatus);
-    formData.append("goodsImage", goodsImage); // Append the file
-
     const base = await Base.patch(URI, formData);
     console.log(base);
   };
@@ -137,7 +137,7 @@ const EditTrack = () => {
           >
             {data.map((data) => (
               <>
-                <option value={data._id}>{data._id}</option>
+                <option value={data._id}>{data.firstName}</option>
               </>
             ))}
           </select>
@@ -272,16 +272,13 @@ const EditTrack = () => {
 
           <input
             type="file"
-            name="Image"
+            name="file"
             accept="/image"
             className="w-full p-3 border border-blue-200  "
-            id="goodsImage"
+            id="file"
             onChange={handleFileChange}
-            // onChange={(e) => {
-            //   setGoodsImage(e.target.files[0]);
-            // }}
-            value={""}
           />
+          <img src={data.goodsImage} alt="" />
         </div>
 
         <br />

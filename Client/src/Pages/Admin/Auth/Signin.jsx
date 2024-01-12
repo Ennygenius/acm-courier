@@ -21,18 +21,16 @@ const Signin = () => {
   //login funcion
   const login = async () => {
     try {
-      const fetchUser = await Base.post(LOGIN_URI, {
+      const res = await Base.post(LOGIN_URI, {
         email,
         password,
       });
-      const { Atoken, msg } = fetchUser?.data;
-      localStorage.setItem("Atoken", Atoken);
-
+      const { Atoken, msg } = res.data;
       if (msg) {
         setMessage(msg);
         toast(msg);
       } else {
-        handleLogin();
+        localStorage.setItem("Atoken", Atoken);
         navigate("/admin");
         window.location.reload();
       }
@@ -42,7 +40,7 @@ const Signin = () => {
   };
 
   //function to call the login function and prevent the page from reloading
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     login();
   };

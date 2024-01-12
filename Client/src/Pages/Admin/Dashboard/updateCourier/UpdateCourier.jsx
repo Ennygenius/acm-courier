@@ -1,14 +1,17 @@
-import React, { useState } from "react";
-import { Base } from "../../../axios/axios";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Base } from "../../../../axios/axios";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddCourier = () => {
+const UpdateCourier = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [data, setData] = useState("");
   const [TrackingId, setId] = useState("");
   const [USPS, setUSPS] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
+
   const formData = {
     TrackingId,
     USPS,
@@ -17,30 +20,44 @@ const AddCourier = () => {
     email,
   };
 
-  const addCourier = async (e) => {
+  useEffect(() => {
+    const getCourier = async () => {
+      const response = await Base.get(`/courier/${id}`);
+      const { TrackingId, USPS, firstName, lastName, email } =
+        response.data.courier;
+      console.log(response.data);
+      setData(response.data.courier);
+      setId(TrackingId);
+      setUSPS(USPS);
+      setFirstName(firstName);
+      setLastName(lastName);
+      setEmail(email);
+    };
+    getCourier();
+  }, []);
+
+  const UpdateCourier = async (e) => {
     e.preventDefault();
-    let response = await Base.post("/courier", formData);
-    const { errMsg } = response.data;
-    if (errMsg) {
-      alert(errMsg);
-    } else {
-      console.log(response);
-      alert("Success");
-      navigate("/admin");
-    }
+    const response = await Base.patch(`/courier/${id}`, formData);
+    alert("Success");
+    navigate("/admin");
+    console.log(response);
   };
+  console.log(formData);
+
   return (
     <div className=" flex justify-center items-center flex-col shadow-lg w-[90%] md:w-[50%] m-auto">
       <div className="mt-5">
-        <h2 className="font-bold text-2xl text-blue-600">Add a Tracker</h2>
+        <h2 className="font-bold text-2xl text-blue-600">Update Courier</h2>
       </div>
-      <form action="" className="w-[80%]" onSubmit={addCourier}>
+      <form action="" className="w-[80%]" onSubmit={UpdateCourier}>
         <div className="my-5 ">
           <label className="" htmlFor="">
             Tracking ID
           </label>
           <input
             type="text"
+            value={TrackingId}
             placeholder=""
             className="w-full p-3 border border-blue-200  "
             onChange={(e) => setId(e.target.value)}
@@ -53,6 +70,7 @@ const AddCourier = () => {
           </label>
           <input
             type="text"
+            value={USPS}
             placeholder=""
             className="w-full p-3 border border-blue-200  "
             onChange={(e) => setUSPS(e.target.value)}
@@ -65,6 +83,7 @@ const AddCourier = () => {
           </label>
           <input
             type="text"
+            value={firstName}
             placeholder=""
             className="w-full p-3 border border-blue-200  "
             onChange={(e) => setFirstName(e.target.value)}
@@ -76,6 +95,7 @@ const AddCourier = () => {
           </label>
           <input
             type="text"
+            value={lastName}
             placeholder=""
             className="w-full p-3 border border-blue-200  "
             onChange={(e) => setLastName(e.target.value)}
@@ -87,6 +107,7 @@ const AddCourier = () => {
           </label>
           <input
             type="email"
+            value={email}
             placeholder=""
             className="w-full p-3 border border-blue-200  "
             onChange={(e) => setEmail(e.target.value)}
@@ -103,4 +124,4 @@ const AddCourier = () => {
   );
 };
 
-export default AddCourier;
+export default UpdateCourier;

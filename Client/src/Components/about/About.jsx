@@ -16,7 +16,7 @@ const About = () => {
           Trusted & Faster Logistic Service Provider
         </h2>
         <p className=" py-2 text-justify text-teal-700">
-          ACM SHIPPING CO. is a low-cost shipping service that delivers to
+          APLHA SHIPPING CO. is a low-cost shipping service that delivers to
           businesses and is faster to more locations than UPS Ground. we have
           25+ years
         </p>

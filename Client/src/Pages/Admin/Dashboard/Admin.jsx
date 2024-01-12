@@ -177,10 +177,10 @@ const Admin = () => {
 
                   <td className="px-5">
                     <div className="flex items-center text-center justify-center">
-                      <Link>
+                      <Link to={`/updateCourier/${data._id}`}>
                         <p className="py-5">Edit</p>
                       </Link>
-                      <Link>
+                      <Link to={`/deleteCourier/${data._id}`}>
                         <p className="px-5">Delete</p>
                       </Link>
                     </div>

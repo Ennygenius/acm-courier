@@ -22,15 +22,19 @@ const AddTrack = () => {
   formData.append("from", from);
   formData.append("to", to);
   formData.append("goodsDetails", goodsDetails);
-  formData.append("goodsImage", goodsImage);
+  formData.append("file", goodsImage);
   formData.append("address", address);
   formData.append("recieverName", recieverName);
   formData.append("recieverNumber", recieverNumber);
   formData.append("weight", weight);
   formData.append("seviceMode", seviceMode);
   formData.append("trackingStatus", trackingStatus);
-  const AddTrans = async () => {
+
+  const AddTracking = async () => {
     const base = await Base.post(URI3, formData);
+    console.log(base.data);
+    alert("success");
+    window.location.reload();
   };
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -39,25 +43,8 @@ const AddTrack = () => {
 
   const HandleSubmit = (e) => {
     try {
+      AddTracking();
       e.preventDefault();
-      if (
-        !courier ||
-        !from ||
-        !to ||
-        !goodsDetails ||
-        !address ||
-        !recieverName ||
-        !recieverNumber ||
-        !weight ||
-        !seviceMode ||
-        !trackingStatus
-      ) {
-        alert("fill in the fields");
-      } else {
-        AddTrans();
-        alert("success");
-        window.location.reload();
-      }
     } catch (error) {
       console.log(error);
     }
@@ -101,7 +88,7 @@ const AddTrack = () => {
             {data.map((data) => (
               <>
                 <option key={data._id} value={data._id}>
-                  {data._id}
+                  {data.firstName}
                 </option>
               </>
             ))}
@@ -257,7 +244,7 @@ const AddTrack = () => {
 
           <input
             type="file"
-            name="goodsImage"
+            name="file"
             accept="/image"
             className="w-full p-3 border border-blue-200  "
             id="goodsImage"

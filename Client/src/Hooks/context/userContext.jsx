@@ -63,7 +63,6 @@ export const UserContextProvider = ({ children }) => {
           },
         });
         setAdmin(response.data);
-        // console.log(response.data);
       } catch (error) {
         console.error("Error fetching user profile", error);
       }

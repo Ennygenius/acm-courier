@@ -5,18 +5,18 @@ import { Base } from "../axios/axios";
 import { UserContext } from "../Hooks/context/userContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { USERLOGIN_URI } from "../Hooks/URI/UseURI";
 
 const Form = (props) => {
   const [TrackingId, setTID] = useState("");
   const [message, setmessage] = useState("");
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  const URI = "/login";
 
   const handleForm = async (e) => {
     e.preventDefault();
     try {
-      const response = await Base.post(URI, {
+      const response = await Base.post(USERLOGIN_URI, {
         TrackingId,
       });
 

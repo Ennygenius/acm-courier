@@ -1,12 +1,12 @@
 import React from "react";
-import { Base } from "../../../../axios/axios";
-import { useParams, useNavigate, redirect, Link } from "react-router-dom";
-import DeleteFunc from "../../../../Components/DeleteFunc";
+import DeleteFunc from "../../Components/DeleteFunc";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Base } from "../../axios/axios";
 
-const DTrack = () => {
+const DeleteCourier = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const URI = `trackingInfo/${id}`;
+  const URI = `courier/${id}`;
 
   const Delete = async () => {
     try {
@@ -16,9 +16,7 @@ const DTrack = () => {
       console.log(error.message);
     }
   };
-  // } else {
-  //   redirect("/admin");
-  // }
+
   return (
     <div className="flex justify-center items-center h-[70vh] ">
       <div className="shadow-lg p-20 md:w-[50%] text-center m-auto">
@@ -39,4 +37,4 @@ const DTrack = () => {
   );
 };
 
-export default DTrack;
+export default DeleteCourier;
