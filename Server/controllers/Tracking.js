@@ -66,7 +66,7 @@ const updateInfo = async (req, res) => {
   } = req.body;
 
   try {
-    const file = await req.file.path;
+    const file = await req.file;
     const info = await TrackInfo.findByIdAndUpdate(req.params.id, {
       courier,
       goodsImage: file,

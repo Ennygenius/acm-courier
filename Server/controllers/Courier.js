@@ -5,6 +5,11 @@ const getAllCourier = async (req, res) => {
   res.json({ courier });
 };
 
+const getSingleCourier = async (req, res) => {
+  const courier = await Courier.findById(req.params.id);
+  res.json({ courier });
+};
+
 const createCourier = async (req, res) => {
   const { TrackingId, USPS, firstName, lastName, email } = req.body;
   const TFind = await Courier.findOne({ TrackingId });
@@ -27,11 +32,20 @@ const createCourier = async (req, res) => {
   }
 };
 
+const updateCourier = async (req, res) => {
+  try {
+    const courier = await Courier.findByIdAndUpdate(req.params.id, req.body);
+    res.json({ courier });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const deleteCourier = async (req, res) => {
   const courier = await Courier.findByIdAndDelete(req.params.id);
   try {
     if (!courier) {
-      res.json({ msg: `no id found of ${req.params.id} found` });
+      return res.json({ msg: `no id found of ${req.params.id} found` });
     }
     res.json({ courier });
   } catch (error) {
@@ -39,4 +53,10 @@ const deleteCourier = async (req, res) => {
   }
 };
 
-export { getAllCourier, createCourier, deleteCourier };
+export {
+  getAllCourier,
+  createCourier,
+  deleteCourier,
+  updateCourier,
+  getSingleCourier,
+};
